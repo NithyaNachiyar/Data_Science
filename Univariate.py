@@ -15,7 +15,8 @@ class QuanQual:
         return Quan, Qual
 
     def Univariate_Table(Quan,dataset):
-        Table=pd.DataFrame(index=['Mean', 'Median', 'Mode', 'Q1:25%','Q2:50%', 'Q3:75%', "99%", 'Q4:100%', "Min", "Max", 'IQR', '1.5rule', 'Lesser', 'Greater' ],columns=Quan)
+        Table=pd.DataFrame(index=['Mean', 'Median', 'Mode', 'Q1:25%','Q2:50%', 'Q3:75%', "99%", 'Q4:100%', "Min", "Max", 
+                                  'IQR', '1.5rule', 'Lesser', 'Greater', 'Skew', "Kurtosis", "Var", "Std" ],columns=Quan)
         for columnname in Quan:
             Table[columnname]['Mean']=dataset[columnname].mean()
             Table[columnname]['Median']=dataset[columnname].median()
@@ -33,6 +34,10 @@ class QuanQual:
             Table[columnname]['Greater']= Table[columnname]['Q3:75%']+Table[columnname]['1.5rule']
             Table[columnname]['Skew']=dataset[columnname].skew()
             Table[columnname]['Kurtosis']=dataset[columnname].kurtosis()
+            Table[columnname]['Skew']=dataset[columnname].skew()
+            Table[columnname]['Kurtosis']=dataset[columnname].kurtosis()
+            Table[columnname]['Var']=dataset[columnname].var()
+            Table[columnname]["Std"]=dataset[columnname].std()
         return Table
 
     def outlier(Table, Quan):
